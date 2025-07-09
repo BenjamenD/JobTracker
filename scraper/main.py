@@ -8,17 +8,21 @@ import os
 
 load_dotenv()
 
-DB_NAME = os.getenv("DB_NAME")
-COLLECTION_NAME = os.getenv("COLLECTION_NAME")
+try:
+    DB_NAME = os.getenv("DB_NAME")
+    COLLECTION_NAME = os.getenv("COLLECTION_NAME")
 
-client = MongoClient(os.getenv("MONGO_URI"))
+    client = MongoClient(os.getenv("MONGO_URI"))
 
-db = client[DB_NAME]
-collection = db[COLLECTION_NAME]
+    db = client[DB_NAME]
+    collection = db[COLLECTION_NAME]
 
-# uncomment this code to delete the db and collection so it can be recreated
-client.drop_database(DB_NAME)
-db.drop_collection(COLLECTION_NAME)
+    # uncomment this code to delete the db and collection so it can be recreated
+    # client.drop_database(DB_NAME)
+    # db.drop_collection(COLLECTION_NAME)
+except Exception as e:
+    print(f"Could not connect to MongoDB: {e}")
+    exit(1)
 
 jobs = scrape_wework() + scrape_remoteok()
 
