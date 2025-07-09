@@ -8,11 +8,11 @@ import { connectDB } from './config/db.js'
 const app = express();
 dotenv.config()
 
+const __dirname = path.resolve();
+
 const PORT = process.env.PORT || 5000;
 
-app.get("/", (req, res) => {
-    
-});
+console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
 
 app.listen(PORT, () => {
     connectDB();
