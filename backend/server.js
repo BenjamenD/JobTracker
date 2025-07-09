@@ -4,6 +4,7 @@ import path from 'path';
 import dotenv from 'dotenv';
 import { connectDB } from './config/db.js'
 import jobRoutes from './routes/job.route.js'
+import authRoutes from './routes/auth.route.js'
 
 
 const app = express();
@@ -16,6 +17,7 @@ const PORT = process.env.PORT || 5000;
 app.use(cors());
 app.use(express.json());
 app.use("/api/jobs", jobRoutes);
+app.use("/api/auth", authRoutes)
 
 console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
 
