@@ -1,3 +1,4 @@
 .env
 TODO
 node_modules/
+__pycache__/
