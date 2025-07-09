@@ -20,6 +20,7 @@ try:
     # uncomment this code to delete the db and collection so it can be recreated
     # client.drop_database(DB_NAME)
     # db.drop_collection(COLLECTION_NAME)
+    
 except Exception as e:
     print(f"Could not connect to MongoDB: {e}")
     exit(1)
