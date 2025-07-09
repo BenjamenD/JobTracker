@@ -6,7 +6,7 @@ export const getJobs = async (req, res) => {
 
         if(!jobs){
             console.log("Error getting jobs");
-            res.status(404).json({msg: "Error getting jobs"});
+            return res.status(404).json({msg: "Error getting jobs"});
         }
         
         res.status(200).json(jobs)
@@ -24,7 +24,7 @@ export const getJob = async (req, res) => {
 
         if(!job){
             console.log("Could not find requested job")
-            res.status(404).json({msg: "Could not find requested job"})
+            return res.status(404).json({msg: "Could not find requested job"})
         }
 
         res.status(200).json(job)
