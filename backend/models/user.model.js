@@ -1,6 +1,8 @@
 import mongoose from "mongoose";
 import uniqueValidator from 'mongoose-unique-validator';
 
+const Schema = mongoose.Schema;
+
 const UserSchema = new mongoose.Schema({
     name: {
         type: String,
@@ -17,6 +19,7 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
+    appliedJobs: [{ type: Schema.Types.ObjectId, ref: "Job" }]
 }, {
     timestamps: true
 });
