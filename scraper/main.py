@@ -18,14 +18,13 @@ try:
     collection = db[COLLECTION_NAME]
 
     # uncomment this code to delete the db and collection so it can be recreated
-    # client.drop_database(DB_NAME)
-    # db.drop_collection(COLLECTION_NAME)
+    db.drop_collection(COLLECTION_NAME)
     
 except Exception as e:
     print(f"Could not connect to MongoDB: {e}")
     exit(1)
 
-jobs = scrape_wework() + scrape_remoteok()
+jobs = scrape_remoteok()
 
 #add job if duplicate isnt found
 for job in jobs:

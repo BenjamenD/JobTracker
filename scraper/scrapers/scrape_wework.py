@@ -21,7 +21,7 @@ def scrape_wework():
             job = {
                 "title": row.get("position"),
                 "company": row.get("company"),
-                "url": "https://remoteok.com" + row.get("url"),
+                "url": row.get("url"),
                 "tags": row.get("tags"),
                 "date_posted": row.get("date")
             }

@@ -16,12 +16,21 @@ def scrape_remoteok():
 
         jobs = []
         for job in job_postings:
+            title = job.get("position")
+            company = job.get("company")
+            jobUrl = job.get("url")
+            tags = job.get("tags")
+            date_posted = job.get("date")
+
+            if not all([title, company, jobUrl, tags, date_posted]):
+                continue
+    
             job_info = {
-                "title": job.get("position"),
-                "company": job.get("company"),
-                "url": job.get("url"),
-                "tags": job.get("tags"),
-                "date_posted": job.get("date")
+                "title": title,
+                "company": company,
+                "url": jobUrl,
+                "tags": tags,
+                "date_posted": date_posted
             }
             jobs.append(job_info)
 

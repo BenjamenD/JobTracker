@@ -2,14 +2,26 @@ import Job from "../models/job.model.js";
 
 export const getJobs = async (req, res) => {
     try {
-        const jobs = await Job.find();
+        const page = parseInt(req.query.page) || 1;
+        const limit = parseInt(req.query.limit) || 20;
+
+        const skip = (page - 1) * limit;
+
+        const jobs = await Job.find().sort({ date_posted: -1 }).skip(skip).limit(limit);
 
         if(!jobs){
             console.log("Error getting jobs");
             return res.status(404).json({msg: "Error getting jobs"});
         }
-        
-        res.status(200).json(jobs)
+
+        const totalJobs = await Job.countDocuments();
+
+        res.status(200).json({
+            jobs,
+            page,
+            totalPages: Math.ceil(totalJobs / limit),
+            hasMore: skip + jobs.length < totalJobs,
+        });
 
     } catch (error) {
         console.error(`Error getting jobs: ${error.message}`);
