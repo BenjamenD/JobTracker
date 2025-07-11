@@ -53,7 +53,11 @@ const Header = () => {
 
       {/* Center Title */}
       <section className="flex justify-center items-center h-20">
-        <h1 className="text-2xl font-bold">JobTracker</h1>
+        <button 
+        className="text-2xl font-bold"
+        onClick={() => navigate("/")}>
+          JobTracker
+          </button>
       </section>
     </div>
   );
