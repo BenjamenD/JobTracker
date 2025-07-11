@@ -4,13 +4,14 @@ import MainLayout from './layouts/MainLayout'
 import LoginPage from './pages/LoginPage'
 import JobPage from './pages/JobPage'
 import UserPage from './pages/UserPage'
+import ProtectedRoute from './auth/ProtectedRoute'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
     <Route path="/" element={<MainLayout />}>
       <Route index element={<HomePage />}/>
       <Route path="/login" element={<LoginPage />}/>
-      <Route path="/user" element={<UserPage />}/>
+      <Route path="/user" element={<ProtectedRoute><UserPage /></ProtectedRoute>}/>
       <Route path="/job" element={<JobPage />}/>
     </Route>
   )
