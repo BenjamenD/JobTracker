@@ -29,6 +29,6 @@ app.listen(PORT, () => {
     if(process.env.NODE_ENV === "development"){
         console.log(`server started at http://localhost:${PORT}`);
     } else {
-        console.log(`server started at ${process.env.PROD_URL}`)
+        console.log(`server started at ${process.env.VITE_PROD_URL}`)
     }
 });

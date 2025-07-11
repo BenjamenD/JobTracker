@@ -1,9 +1,5 @@
-import dotenv from 'dotenv';
-
-dotenv.config();
-
-const BASE_URL = process.env.NODE_ENV === "development" ? 
-`http://localhost:${process.env.PORT}`: 
-process.env.DEV_URL;
+const BASE_URL = import.meta.env.MODE === "development" ? 
+"http://localhost:5000": 
+import.meta.env.VITE_PROD_URL;
 
 export default BASE_URL;
