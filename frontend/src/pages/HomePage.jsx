@@ -1,6 +1,10 @@
 import React from 'react'
 import { useState, useEffect } from 'react';
 import axios from '../api/axiosInstance.js'
+import { FaBookmark } from "react-icons/fa";
+import { IoIosCheckmarkCircle } from "react-icons/io";
+import ApplyButton from '../components/ApplyButton.jsx';
+import BookmarkButton from '../components/BookmarkButton.jsx';
 
 const HomePage = () => {
   const [items, setItems] = useState([]);
@@ -18,7 +22,7 @@ const HomePage = () => {
       setItems((prev) => [...prev, ...newItems]);
       setPage((prev) => prev + 1);
 
-      // If fewer than 20 returned, assume no more data
+      //fewer than 20 returned, assume no more data
       if (newItems.length < 20) setHasMore(false);
     } catch (err) {
       console.error("Error fetching items:", err);
@@ -38,20 +42,18 @@ const HomePage = () => {
   };
 
   useEffect(() => {
-    loadItems(); // Load initial 20
+    loadItems();
     window.addEventListener("scroll", handleScroll);
     return () => window.removeEventListener("scroll", handleScroll);
   }, []);
+
 
   return (
     <div className="p-4">
       <ul className="space-y-2 max-w-8/9 mx-auto">
         {items.map((job) => (
         <li key={job._id} className="border-2 p-4 rounded-lg bg-white shadow">
-          <h2 className="text-lg font-bold">{job.title}
-            <button>button</button>
-            <button>button</button>
-          </h2>
+          <h2 className="text-lg font-bold">{job.title} <BookmarkButton jobId={job._id}/> <ApplyButton jobId={job._id}/></h2>
           <p className="text-sm text-gray-700">{job.company}</p>
           <a
             href={job.url}

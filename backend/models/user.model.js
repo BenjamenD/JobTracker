@@ -19,7 +19,8 @@ const UserSchema = new mongoose.Schema({
         type: String,
         required: true
     },
-    appliedJobs: [{ type: Schema.Types.ObjectId, ref: "Job" }]
+    appliedJobs: [{ type: Schema.Types.ObjectId, ref: "Job" }],
+    bookmarkedJobs: [{ type: Schema.Types.ObjectId, ref: "Job" }]
 }, {
     timestamps: true
 });

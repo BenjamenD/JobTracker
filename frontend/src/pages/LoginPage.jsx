@@ -19,7 +19,8 @@ const LoginPage = () => {
             if(!data.token) return;
             localStorage.setItem('token', data.token);
 
-            navigate(redirect);
+            //navigate(redirect);
+            navigate("/")
         } catch (error) {
             console.error(`Failed to redirect after login: ${error.message}`);
         }

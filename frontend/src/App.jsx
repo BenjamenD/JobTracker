@@ -5,6 +5,7 @@ import LoginPage from './pages/LoginPage'
 import JobPage from './pages/JobPage'
 import UserPage from './pages/UserPage'
 import ProtectedRoute from './auth/ProtectedRoute'
+import RegisterPage from './pages/RegisterPage'
 
 const router = createBrowserRouter(
   createRoutesFromElements(
@@ -13,6 +14,7 @@ const router = createBrowserRouter(
       <Route path="/login" element={<LoginPage />}/>
       <Route path="/user" element={<ProtectedRoute><UserPage /></ProtectedRoute>}/>
       <Route path="/job" element={<JobPage />}/>
+      <Route path="/register" element={<RegisterPage />}/>
     </Route>
   )
 )

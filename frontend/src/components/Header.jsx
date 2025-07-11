@@ -35,6 +35,12 @@ const Header = () => {
             >
               Login
             </button>
+                        <button
+              onClick={() => navigate("/register")}
+              className="w-20 h-9 border-2 border-black rounded-lg hover:border-gray-500 transition"
+            >
+              Register
+            </button>
             <button
               onClick={() => navigate("/user")}
               className="w-20 h-9 border-2 border-black rounded-lg hover:border-gray-500 transition"

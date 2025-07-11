@@ -7,6 +7,7 @@ import jobRoutes from './routes/job.route.js'
 import authRoutes from './routes/auth.route.js'
 import applicationRoutes from './routes/application.route.js'
 import userRoutes from './routes/user.route.js'
+import bookmarkRoutes from './routes/bookmark.route.js'
 
 const app = express();
 dotenv.config()
@@ -21,6 +22,7 @@ app.use("/api/jobs", jobRoutes);
 app.use("/api/auth", authRoutes);
 app.use("/api/application", applicationRoutes);
 app.use("/api/user", userRoutes);
+app.use("/api/bookmark", bookmarkRoutes);
 
 console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
 
