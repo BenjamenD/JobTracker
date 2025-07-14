@@ -23,6 +23,6 @@ jobs:
           pip install -r requirements.txt || echo "No requirements.txt found"
 
       - name: Run scraper
-        run: python scrapers/main.py
+        run: python scraper/main.py
         env:
           MONGO_URI: ${{ secrets.MONGO_URI }}
