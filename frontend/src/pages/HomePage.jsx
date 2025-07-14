@@ -19,10 +19,9 @@ const HomePage = () => {
       const res = await axios.get(`/api/jobs?page=${page}&limit=20`);
       const newItems = res.data.jobs;
 
-      setItems((prev) => [...prev, ...newItems]);
+      setItems((prev) => [...prev, ...newItems]);     
       setPage((prev) => prev + 1);
 
-      //fewer than 20 returned, assume no more data
       if (newItems.length < 20) setHasMore(false);
     } catch (err) {
       console.error("Error fetching items:", err);

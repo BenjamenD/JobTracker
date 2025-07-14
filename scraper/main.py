@@ -1,5 +1,5 @@
 from scrapers.scrape_remoteok import scrape_remoteok
-from scrapers.scrape_wework import scrape_wework
+from scrapers.scrape_wework import scrape_wwr
 from pymongo import MongoClient
 from datetime import datetime, timedelta, timezone
 from dateutil import parser
@@ -18,13 +18,13 @@ try:
     collection = db[COLLECTION_NAME]
 
     # uncomment this code to delete the db and collection so it can be recreated
-    db.drop_collection(COLLECTION_NAME)
+    # db.drop_collection(COLLECTION_NAME)
     
 except Exception as e:
     print(f"Could not connect to MongoDB: {e}")
     exit(1)
 
-jobs = scrape_remoteok()
+jobs = scrape_remoteok() + scrape_wwr()
 
 #add job if duplicate isnt found
 for job in jobs:
