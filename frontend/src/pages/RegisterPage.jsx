@@ -1,9 +1,101 @@
-import React from 'react'
+import React, { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import axios from '../api/axiosInstance';
 
 const RegisterPage = () => {
-  return (
-    <div>RegisterPage</div>
-  )
-}
+    const [name, setName] = useState('');
+    const [email, setEmail] = useState('');
+    const [password, setPassword] = useState('');
+    const [errorMsg, setErrorMsg] = useState('');
 
-export default RegisterPage
+    const navigate = useNavigate();
+
+    const handleSubmit = async (event) => {
+        event.preventDefault();
+        try {
+            const { data } = await axios.post('/api/auth/register', {name, email, password})
+            if(!data.token){
+                setErrorMsg(data.msg);
+                return;
+            }
+
+            localStorage.setItem('token', data.token);
+            navigate('/');
+        } catch (error) {
+            setErrorMsg(error.response.data.msg);
+            console.error(`Registration failed: ${error.message}`);
+        }
+    };
+
+    return (
+        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+            <form 
+                onSubmit={handleSubmit}
+                className="bg-white p-6 rounded shadow-md w-full max-w-sm"
+            >
+                <h2 className="text-2xl font-semibold mb-4 text-center">Register</h2>
+
+                <div className="mb-4">
+                    <label htmlFor="name" className="block mb-1">Full Name</label>
+                    <input
+                        type="text"
+                        id="name"
+                        name="name"
+                        value={name}
+                        onChange={(e) => setName(e.target.value)}
+                        placeholder="Full Name"
+                        className="w-full border px-3 py-2 rounded"
+                        required
+                    />
+                </div>
+
+                <div className="mb-4">
+                    <label htmlFor="email" className="block mb-1">Email</label>
+                    <input
+                        type="email"
+                        id="email"
+                        name="email"
+                        value={email}
+                        onChange={(e) => setEmail(e.target.value)}
+                        placeholder="Email"
+                        className="w-full border px-3 py-2 rounded"
+                        required
+                    />
+                </div>
+
+                <div className="mb-4">
+                    <label htmlFor="password" className="block mb-1">Password</label>
+                    <input
+                        type="password"
+                        id="password"
+                        name="password"
+                        value={password}
+                        onChange={(e) => setPassword(e.target.value)}
+                        placeholder="Password"
+                        className="w-full border px-3 py-2 rounded"
+                        required
+                    />
+                </div>
+
+                <button
+                    type="submit"
+                    className="w-full py-2 px-4 border rounded bg-gray-200 hover:bg-gray-300"
+                >
+                    Register
+                </button>
+            </form>
+
+            <div className="absolute bottom-10 text-center w-full">
+                {errorMsg && (<div className='text-red-800 my-2 text-center'>{errorMsg}</div>)}
+                <button
+                    onClick={() => navigate('/login')}
+                    className="text-sm text-blue-500 hover:text-blue-700"
+                >
+                    Already have an account? Login
+                </button>
+            </div>
+        </div>
+    );
+};
+
+export default RegisterPage;

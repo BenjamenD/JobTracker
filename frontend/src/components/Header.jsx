@@ -15,14 +15,15 @@ const Header = () => {
               onClick={() => {
                 localStorage.removeItem("token");
                 navigate("/");
+                window.location.reload();
               }}
-              className="w-20 h-9 border-2 border-black rounded-lg hover:border-gray-500 transition"
+              className="w-20 h-9 border-1 border-black rounded-lg hover:border-gray-500 transition"
             >
               Logout
             </button>
             <button
               onClick={() => navigate("/user")}
-              className="w-20 h-9 border-2 border-black rounded-lg hover:border-gray-500 transition"
+              className="w-20 h-9 border-1 border-black rounded-lg hover:border-gray-500 transition"
             >
               User
             </button>
@@ -31,19 +32,19 @@ const Header = () => {
           <>
             <button
               onClick={() => navigate("/login")}
-              className="w-20 h-9 border-2 border-black rounded-lg hover:border-gray-500 transition"
+              className="w-20 h-9 border-1 border-black rounded-lg hover:border-gray-500 transition"
             >
               Login
             </button>
                         <button
               onClick={() => navigate("/register")}
-              className="w-20 h-9 border-2 border-black rounded-lg hover:border-gray-500 transition"
+              className="w-20 h-9 border-1 border-black rounded-lg hover:border-gray-500 transition"
             >
               Register
             </button>
             <button
               onClick={() => navigate("/user")}
-              className="w-20 h-9 border-2 border-black rounded-lg hover:border-gray-500 transition"
+              className="w-20 h-9 border-1 border-black rounded-lg hover:border-gray-500 transition"
             >
               User
             </button>

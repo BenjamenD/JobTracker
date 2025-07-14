@@ -8,6 +8,8 @@ import authRoutes from './routes/auth.route.js'
 import applicationRoutes from './routes/application.route.js'
 import userRoutes from './routes/user.route.js'
 import bookmarkRoutes from './routes/bookmark.route.js'
+import { fileURLToPath } from 'url';
+import { dirname } from 'path';
 
 const app = express();
 dotenv.config()
@@ -26,12 +28,12 @@ app.use("/api/bookmark", bookmarkRoutes);
 
 console.log(`NODE_ENV: ${process.env.NODE_ENV}`)
 
-if(process.env.NODE_ENV === "production"){
-    app.use(express.static(path.join(__dirname, "/frontend/dist")));
-    
-    app.get("*", (req, res) => {
-        res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"))
-    })
+if(process.env.NODE_ENV === "production") {
+    app.use(express.static(path.join(__dirname, "frontend/dist")));
+
+    app.get(/(.*)/, (req, res) => {
+        res.sendFile(path.resolve(__dirname, "frontend", "dist", "index.html"));
+    });
 }
 
 app.listen(PORT, () => {

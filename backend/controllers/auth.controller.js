@@ -5,9 +5,17 @@ import jwt from 'jsonwebtoken';
 export const registerUser = async (req, res) => {
     const { name, email, password } = req.body;
 
+    if(!name || !email || !password){
+        console.log("One or more fields are missing for registration");
+        return res.status(400).json({msg:"One or more fields are missing"});
+    } 
+
     try {
         let user = await User.findOne({email});
-        if (user) return res.status(400).json({msg: "Email is already registered"});
+        if (user) {
+            console.log("Email is already registered (controller msg)")
+            return res.status(400).json({msg: "Email is already registered"});
+        }
 
         //hash the password if the user doesnt exist already
         const salt = await bcrypt.genSalt(10);
@@ -18,7 +26,7 @@ export const registerUser = async (req, res) => {
 
         const token = jwt.sign({id: user._id}, process.env.JWT_SECRET, {expiresIn: '1h'});
 
-        res.status(201).json({token, user: {id: user._id, name: user.name, emai: user.email}});
+        res.status(201).json({token, user: {id: user._id, name: user.name, email: user.email}});
         
     } catch (error) {
         console.error(`Error registering new user: ${error.message}`);
@@ -28,6 +36,7 @@ export const registerUser = async (req, res) => {
 
 export const authenticateUser = async (req, res) => {
     const {email, password} = req.body;
+    if(!email || !password) return res.status(400).json({msg:"One or more fields are missing"});
 
     try {
         const user = await User.findOne({email});
