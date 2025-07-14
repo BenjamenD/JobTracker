@@ -26,3 +26,5 @@ jobs:
         run: python scraper/main.py
         env:
           MONGO_URI: ${{ secrets.MONGO_URI }}
+          DB_NAME: ${{ secrets.DB_NAME }}
+          COLLECTION_NAME: ${{ secrets.COLLECTION_NAME }}
