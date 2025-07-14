@@ -1,7 +1,9 @@
 import requests
 import json
+from datetime import datetime, timedelta, timezone
 
 def scrape_wwr():
+    deadline = datetime.now(timezone.utc) - timedelta(days=30)
     try:
         url = "https://weworkremotely.com/categories/remote-programming-jobs.json"
         headers = {"User-Agent": "Mozilla/5.0"}
@@ -20,7 +22,7 @@ def scrape_wwr():
             tags = job.get("category", "").split(",")  # You can parse this better
             date_posted = job.get("publication_date")
 
-            if not all([title, company, jobUrl, tags, date_posted]):
+            if not all([title, company, jobUrl, tags, date_posted]) or date_posted < deadline:
                 continue
 
             job_info = {

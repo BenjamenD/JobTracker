@@ -1,7 +1,9 @@
 import requests
 import json
+from datetime import datetime, timedelta, timezone
 
 def scrape_remoteok():
+    deadline = datetime.now(timezone.utc) - timedelta(days=30)
     try:
         url = "https://remoteok.com/api"
         headers = {"User-Agent": "Mozilla/5.0"}
@@ -22,7 +24,7 @@ def scrape_remoteok():
             tags = job.get("tags")
             date_posted = job.get("date")
 
-            if not all([title, company, jobUrl, tags, date_posted]):
+            if not all([title, company, jobUrl, tags, date_posted]) or date_posted < deadline:
                 continue
     
             job_info = {
