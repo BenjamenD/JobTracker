@@ -24,7 +24,7 @@ except Exception as e:
     print(f"Could not connect to MongoDB: {e}")
     exit(1)
 
-jobs = scrape_remoteok() + scrape_wwr()
+jobs = scrape_remoteok()# + scrape_wwr()
 
 #add job if duplicate isnt found
 for job in jobs:

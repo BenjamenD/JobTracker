@@ -1,6 +1,7 @@
 import requests
 import json
 from datetime import datetime, timedelta, timezone
+from dateutil import parser
 
 def scrape_remoteok():
     deadline = datetime.now(timezone.utc) - timedelta(days=30)
@@ -24,7 +25,10 @@ def scrape_remoteok():
             tags = job.get("tags")
             date_posted = job.get("date")
 
-            if not all([title, company, jobUrl, tags, date_posted]) or date_posted < deadline:
+
+
+
+            if not all([title, company, jobUrl, tags, date_posted]) or parser.isoparse(date_posted) < deadline:
                 continue
     
             job_info = {
