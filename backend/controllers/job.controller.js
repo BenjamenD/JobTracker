@@ -7,7 +7,7 @@ export const getJobs = async (req, res) => {
 
         const skip = (page - 1) * limit;
 
-        const jobs = await Job.find().sort({ date_posted: -1 }).skip(skip).limit(limit);
+        const jobs = await Job.find().sort({ _id: -1 }).skip(skip).limit(limit);
 
         if(!jobs){
             console.log("Error getting jobs");
@@ -17,6 +17,8 @@ export const getJobs = async (req, res) => {
         const totalJobs = await Job.countDocuments();
 
         res.status(200).json({
+            page,
+            limit,
             jobs,
             page,
             totalPages: Math.ceil(totalJobs / limit),
