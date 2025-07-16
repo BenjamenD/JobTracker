@@ -28,7 +28,7 @@ const RegisterPage = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 flex-col">
             <form 
                 onSubmit={handleSubmit}
                 className="bg-white p-6 rounded shadow-md w-full max-w-sm"
@@ -85,8 +85,9 @@ const RegisterPage = () => {
                 </button>
             </form>
 
-            <div className="absolute bottom-10 text-center w-full">
-                {errorMsg && (<div className='text-red-800 my-2 text-center'>{errorMsg}</div>)}
+            {errorMsg && (<div className='text-red-800 mb-2 mt-5 text-center'>{errorMsg}</div>)}
+
+            <div className="text-center w-full mt-10">
                 <button
                     onClick={() => navigate('/login')}
                     className="text-sm text-blue-500 hover:text-blue-700"
