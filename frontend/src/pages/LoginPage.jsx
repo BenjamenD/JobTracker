@@ -5,6 +5,7 @@ import axios from '../api/axiosInstance.js';
 const LoginPage = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
+    const [errorMsg, setErrorMsg] = useState('');
 
     const [searchParams] = useSearchParams();
     const redirect = searchParams.get('redirect') || '/';
@@ -16,17 +17,20 @@ const LoginPage = () => {
         try {
             const { data } = await axios.post('/api/auth/login', { email, password });
 
-            if (!data.token) return;
+            if (!data.token){
+                setErrorMsg(data.msg);
+                return;
+            }
 
             localStorage.setItem('token', data.token);
             navigate(redirect);
         } catch (error) {
-            console.error(`Login failed: ${error.message}`);
-        }
+            setErrorMsg(error.response.data.msg);
+            console.error(`Registration failed: ${error.message}`);        }
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100">
+        <div className="min-h-screen flex items-center justify-center bg-gray-100 flex-col">
             <form 
                 onSubmit={handleSubmit}
                 className="bg-white p-6 rounded shadow-md w-full max-w-sm"
@@ -68,6 +72,17 @@ const LoginPage = () => {
                     Login
                 </button>
             </form>
+
+            {errorMsg && <div className='text-red-800 mb-2 mt-5 text-center'>{errorMsg}</div>}
+
+            <div className="text-center w-full mt-10">
+                <button
+                    onClick={() => navigate('/register')}
+                    className="text-sm text-blue-500 hover:text-blue-700"
+                >
+                    Dont have an account? Register
+                </button>
+            </div>
         </div>
     );
 };
