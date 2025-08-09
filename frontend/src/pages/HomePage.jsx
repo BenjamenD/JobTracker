@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState, useEffect, useRef } from 'react';
 import axios from '../api/axiosInstance.js';
 import InfiniteScroll from 'react-infinite-scroll-component';
 import ApplyButton from '../components/ApplyButton.jsx';
@@ -8,36 +8,65 @@ const HomePage = () => {
   const [items, setItems] = useState([]);
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
+  const [loading, setLoading] = useState(false);
 
-  const fetchJobs = async (manual = false) => {
+  // Keep an imperative page reference to avoid stale closures
+  const pageRef = useRef(1);
+  // Prevent double initial fetch in React StrictMode (dev)
+  const initialFetchDoneRef = useRef(false);
+
+  const LIMIT = 20;
+
+  const fetchJobs = async (pageToFetch) => {
+    if (loading) return;
+    setLoading(true);
     try {
-      if(!manual && (page === 1)) return;
-      const res = await axios.get(`/api/jobs?page=${page}&limit=40`);
-      const newItems = res.data.jobs;
-      console.log(`page: ${page}`)
+      const res = await axios.get(`/api/jobs?page=${pageToFetch}&limit=${LIMIT}`);
+      const newItems = Array.isArray(res.data.jobs) ? res.data.jobs : [];
 
-      setItems((prev) => [...prev, ...newItems]);
+      setItems((prev) => {
+        const merged = [...prev, ...newItems];
+        const seenIds = new Set();
+        return merged.filter((job) => {
+          if (!job || !job._id) return false;
+          if (seenIds.has(job._id)) return false;
+          seenIds.add(job._id);
+          return true;
+        });
+      });
 
-      if (newItems.length < 20) {
+      if (newItems.length < LIMIT) {
         setHasMore(false);
       } else {
-        setPage((prev) => prev + 1);
+        const nextPage = pageToFetch + 1;
+        pageRef.current = nextPage;
+        setPage(nextPage);
       }
-
     } catch (err) {
       console.error("Error fetching jobs:", err);
+    } finally {
+      setLoading(false);
     }
   };
 
   useEffect(() => {
-    fetchJobs(true);
+    if (initialFetchDoneRef.current) return;
+    initialFetchDoneRef.current = true;
+    pageRef.current = 1;
+    setPage(1);
+    fetchJobs(1);
   }, []);
+
+  const loadMore = () => {
+    if (loading || !hasMore) return;
+    fetchJobs(pageRef.current);
+  };
 
   return (
     <div className="p-4">
       <InfiniteScroll
         dataLength={items.length}
-        next={() => fetchJobs(false)}
+        next={loadMore}
         hasMore={hasMore}
         loader={<p className="text-center text-gray-500">Loading...</p>}
         endMessage={<p className="text-center text-gray-400">No more jobs.</p>}
