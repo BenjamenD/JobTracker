@@ -28,23 +28,24 @@ const RegisterPage = () => {
     };
 
     return (
-        <div className="min-h-screen flex items-center justify-center bg-gray-100 flex-col">
+        <div className="min-h-[70vh] flex-col items-center justify-center">
             <form 
                 onSubmit={handleSubmit}
-                className="bg-white p-6 rounded shadow-md w-full max-w-sm"
+                className="bg-white/80 backdrop-blur border border-slate-200 p-6 rounded-xl shadow-sm w-full max-w-sm mx-auto"
             >
-                <h2 className="text-2xl font-semibold mb-4 text-center">Register</h2>
+                <h2 className="text-2xl font-semibold mb-1 text-center text-slate-900">Create account</h2>
+                <p className="text-center text-sm text-slate-500 mb-4">Join JobTracker</p>
 
                 <div className="mb-4">
-                    <label htmlFor="name" className="block mb-1">Full Name</label>
+                    <label htmlFor="name" className="block mb-1">Name</label>
                     <input
                         type="text"
                         id="name"
                         name="name"
                         value={name}
                         onChange={(e) => setName(e.target.value)}
-                        placeholder="Full Name"
-                        className="w-full border px-3 py-2 rounded"
+                        placeholder="Name"
+                        className="w-full border border-slate-300 focus:border-slate-400 focus:outline-none px-3 py-2 rounded-md bg-white"
                         required
                     />
                 </div>
@@ -58,7 +59,7 @@ const RegisterPage = () => {
                         value={email}
                         onChange={(e) => setEmail(e.target.value)}
                         placeholder="Email"
-                        className="w-full border px-3 py-2 rounded"
+                        className="w-full border border-slate-300 focus:border-slate-400 focus:outline-none px-3 py-2 rounded-md bg-white"
                         required
                     />
                 </div>
@@ -72,25 +73,25 @@ const RegisterPage = () => {
                         value={password}
                         onChange={(e) => setPassword(e.target.value)}
                         placeholder="Password"
-                        className="w-full border px-3 py-2 rounded"
+                        className="w-full border border-slate-300 focus:border-slate-400 focus:outline-none px-3 py-2 rounded-md bg-white"
                         required
                     />
                 </div>
 
                 <button
                     type="submit"
-                    className="w-full py-2 px-4 border rounded bg-gray-200 hover:bg-gray-300"
+                    className="w-full py-2 px-4 rounded-md bg-slate-900 text-white hover:bg-slate-800 transition"
                 >
                     Register
                 </button>
             </form>
 
-            {errorMsg && (<div className='text-red-800 mb-2 mt-5 text-center'>{errorMsg}</div>)}
+            {errorMsg && (<div className='text-red-700 mb-2 mt-5 text-center text-sm'>{errorMsg}</div>)}
 
             <div className="text-center w-full mt-10">
                 <button
                     onClick={() => navigate('/login')}
-                    className="text-sm text-blue-500 hover:text-blue-700"
+                    className="text-sm text-slate-600 hover:text-slate-900 underline-offset-2 hover:underline"
                 >
                     Already have an account? Login
                 </button>

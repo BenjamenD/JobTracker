@@ -36,7 +36,13 @@ const ApplyButton = ({jobId}) => {
   };
   return (
     <div>
-      <button className={`pl-2 ${apply? 'text-green-400' : 'text-black-800'}`} onClick={() => handleApply(jobId)}><IoIosCheckmarkCircle /></button>
+      <button 
+        className={`p-1 rounded-md transition ${apply? 'text-emerald-500 hover:text-emerald-600' : 'text-slate-500 hover:text-slate-700'}`} 
+        onClick={() => handleApply(jobId)}
+        aria-label={apply ? 'Unapply' : 'Apply'}
+      >
+        <IoIosCheckmarkCircle />
+      </button>
     </div>
   )
 }

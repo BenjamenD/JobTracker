@@ -6,9 +6,16 @@ const Header = () => {
   const token = localStorage.getItem("token");
 
   return (
-    <div className="relative pb-5 h-30 bg-gray-200 p-4">
-      {/* Top-right buttons */}
-      <div className="absolute top-4 right-4 flex space-x-4">
+    <header className="relative border-b border-slate-200 bg-white/80 backdrop-blur supports-[backdrop-filter]:bg-white/60">
+      <div className="mx-auto max-w-5xl px-4 py-4 flex items-center justify-between">
+        <button 
+          className="text-xl sm:text-2xl font-extrabold tracking-tight text-slate-900 hover:text-slate-700 transition"
+          onClick={() => navigate("/")}
+        >
+          JobTracker
+        </button>
+
+        <div className="flex items-center gap-2">
         {token ? (
           <>
             <button
@@ -17,13 +24,13 @@ const Header = () => {
                 navigate("/");
                 window.location.reload();
               }}
-              className="w-20 h-9 border-1 border-black rounded-lg hover:border-gray-500 transition"
+              className="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium border border-slate-300 text-slate-700 hover:bg-slate-50 transition"
             >
               Logout
             </button>
             <button
               onClick={() => navigate("/user")}
-              className="w-20 h-9 border-1 border-black rounded-lg hover:border-gray-500 transition"
+              className="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium border border-slate-300 text-slate-700 hover:bg-slate-900 hover:text-white transition"
             >
               User
             </button>
@@ -32,35 +39,27 @@ const Header = () => {
           <>
             <button
               onClick={() => navigate("/login")}
-              className="w-20 h-9 border-1 border-black rounded-lg hover:border-gray-500 transition"
+              className="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium border border-slate-300 text-slate-700 hover:bg-slate-900 hover:text-white transition"
             >
               Login
             </button>
-                        <button
+              <button
               onClick={() => navigate("/register")}
-              className="w-20 h-9 border-1 border-black rounded-lg hover:border-gray-500 transition"
+              className="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium border border-slate-300 text-slate-700 hover:bg-slate-900 hover:text-white transition"
             >
               Register
             </button>
             <button
               onClick={() => navigate("/user")}
-              className="w-20 h-9 border-1 border-black rounded-lg hover:border-gray-500 transition"
+              className="inline-flex items-center justify-center rounded-md px-3 py-2 text-sm font-medium border border-slate-300 text-slate-700 hover:bg-slate-900 hover:text-white transition"
             >
               User
             </button>
           </>
         )}
+        </div>
       </div>
-
-      {/* Center Title */}
-      <section className="flex justify-center items-center h-20">
-        <button 
-        className="text-2xl font-bold"
-        onClick={() => navigate("/")}>
-          JobTracker
-          </button>
-      </section>
-    </div>
+    </header>
   );
 };
 

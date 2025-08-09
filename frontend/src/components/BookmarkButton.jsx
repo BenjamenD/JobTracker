@@ -37,8 +37,9 @@ const BookmarkButton = ({ jobId }) => {
   return (
     <div>
       <button
-        className={`pl-2 ${bookmark ? 'text-yellow-400' : 'text-black-800'}`}
+        className={`p-1 rounded-md transition ${bookmark ? 'text-amber-500 hover:text-amber-600' : 'text-slate-500 hover:text-slate-700'}`}
         onClick={() => handleBookmark(jobId)}
+        aria-label={bookmark ? 'Remove bookmark' : 'Bookmark'}
       >
         <FaBookmark />
       </button>
